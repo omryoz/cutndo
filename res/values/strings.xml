@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, GetClipsPhoneGapPluginActivity!</string>
+    <string name="app_name">Cutndo</string>
+    <string name="clip_monitor_service">Clip Plugin Clipboard Monitor</string>
+
+</resources>

@@ -1,0 +1,182 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    line-height:1.5;
+    color: black;
+    font-size:14px;
+    padding:5px;
+    word-wrap: break-word;
+    -webkit-text-size-adjust: none;
+}
+
+h1, h2, h3, h4, h5, h6{ font-weight: normal; }
+
+/*  Main Styles */
+
+body{
+
+}
+
+header{
+    top:0; left:0;
+    height:48px;
+}
+
+footer {
+    bottom:0; left:0;
+    height:48px;
+    border-top:1px solid #c3c3c3;
+    background: #adff2f;
+}
+
+header, footer{
+    padding:0;
+    position:absolute;
+    z-index:2;
+    font-size:14px;
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    line-height:45px;
+}
+
+h1{
+    margin:0;
+}
+
+#wrapper{
+    position:absolute;
+    top:45px; bottom:48px; left:0;
+    width:100%;
+    overflow: hidden;
+}
+
+#mainContainer {
+    position:absolute;
+    width:100%;
+    padding:0;
+}
+#mainContainer > div {
+    display: none;
+}
+
+#mainContainer div.mainPages {
+    width:100%;
+    position: absolute;
+    left : 0; top : 0;
+}
+
+#mainContainer > div.current {
+    display: block;
+}
+
+#mainPage {margin: 0;padding: 0}
+
+#mainPage div.mainPageTabs{
+    width:100%;
+    left : 0;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+
+#mainPage > div.mainPageTabs {
+    display: none;
+
+}
+#mainPage > div.current {
+    display: block;
+}
+
+
+#footTabBar{
+    margin:0;
+    padding:0;
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+}
+
+#footTabBar li {
+    display: inline;
+    float:left;
+    width: 25%;
+}
+
+#footTabBar a {
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-touch-callout:none;
+}
+
+#footTabBar a.current {
+    background: #87ceeb;
+}
+
+#headTabBar{
+    margin:0;
+    padding:0;
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+
+}
+
+#headTabBar li {
+    display: inline;
+    float:left;
+    width: 25%;
+}
+
+#headTabBar a {
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-touch-callout:none;
+}
+
+#headTabBar a.current {
+    background: #c3c3c3;
+}
+
+
+.clear{
+    clear: both;
+}
+
+/*dialog*/
+#dialog-overlay {
+	width:100%;
+	height:100%;
+	opacity: 0.5;
+	background:#000;
+	position:absolute;
+	top:0; left:0;
+	z-index:3000;
+	display:none;
+}
+
+
+#dialog-box {
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 5px;
+	background:#eee;
+	width:328px;
+	position:absolute;
+	z-index:5000;
+	display:none;
+}
+
