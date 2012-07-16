@@ -76,6 +76,16 @@ app.views.main.vars = {
 			}
 		]
 };
+app.views.main.translate = {};
+app.views.main.translate.template= "<div id='translate_results'>{{text}}</div>";
+
+app.views.main.search = {};
+app.views.main.search.template =  "<div id='search_results'>{{#video}}{{#MediaUrlFlag}}<ul>{{Title}} <li>MediaUrl:{{MediaUrl}}</li><li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/MediaUrlFlag}}{{/video}}</div>";
+//app.views.main.search.template.web= "<div id='search_results'>{{#web}}<ul>{{Title}}<li>{{Description}}</li><li>{{DisplayUrl}}</li></ul>{{/web}}</div>";
+//app.views.main.search.template.image= "<div id='search_results'>{{#image}}<ul>ImageURL:{{MediaUrl}}<li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/image}}</div>";
+//app.views.main.search.template.video= "<div id='search_results'>{{#video}}{{#MediaUrlFlag}}<ul>{{Title}} <li>MediaUrl:{{MediaUrl}}</li><li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/MediaUrlFlag}}{{/video}}</div>";
+
+
 
 /* FOOTER BAR VIEW */
 app.views.footBar = {};

@@ -65,11 +65,13 @@ app.events.mainPageHeadBarOnClick = function(){
 				case "Search":
 					app.lastResult.search.text = app.lastClip.text;
 					app.lastResult.search.data = r;
+					app.executeViews("#mainPageSearch" ,app.views.main.search.template ,app.lastResult.search.data);
 					console.log(app.lastResult.search.data);
 					break;
 				case "Translate":
 					app.lastResult.translate.text = app.lastClip.text;
 					app.lastResult.translate.data = r;
+					app.executeViews("#mainPageTranslate" ,app.views.main.translate.template ,app.lastResult.translate.data);
 					console.log(app.lastResult.translate.data);
 					break;
 
