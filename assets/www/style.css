@@ -152,6 +152,35 @@ h1{
     background: #c3c3c3;
 }
 
+#searchTabBar{
+    margin:0;
+    padding:0;
+    list-style: none;
+    display: inline-block;
+    width: 100%;
+
+}
+
+#searchTabBar li {
+    display: inline;
+    float:left;
+    width: 25%;
+}
+
+#searchTabBar a {
+    color: #000000;
+    display: block;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-touch-callout:none;
+}
+
+#searchTabBar a.current {
+    background: #c3c3c3;
+}
 
 .clear{
     clear: both;

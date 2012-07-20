@@ -8,7 +8,7 @@ app.views.main.template =
 	'{{#content}}' +
 		'<div id="{{id}}Page" class="mainPages {{#isMain}}{{myClass}}{{/isMain}}"  >'+
 			'{{#isMain}}' +
-				'<ul id="headTabBar">' +
+				'<ul id="headTabBar">' + //to try to take it out and build a generic function.
 					'{{#navBarContent}}' +
 						'<li>' +
 							'<a href="#"  data-target="{{target}}">{{label}}</a>' +
@@ -17,8 +17,20 @@ app.views.main.template =
 				'</ul>' +
 
 				'{{#pages}}' +
-						'<div id="{{id}}" class="mainPageTabs {{#isIndex}}{{myClass}}{{/isIndex}}" >{{id}}</div>' +
-				'{{/pages}}' +
+						'<div id="{{id}}" class="mainPageTabs {{#isIndex}}{{myClass}}{{/isIndex}}" >' +
+						'{{#isSearchPages}}' + // Adding the divs inside the search: web,image,video
+							'<ul id="searchTabBar">'+ // adding the ul for the headers
+								'{{#searchBarContent}}' +
+									'<li>' + //li headers and links
+										'<a href="#"  data-target="{{target}}">{{label}}</a>' +
+									'</li>' +
+								'{{/searchBarContent}}' +
+							'</ul>'+
+			'				{{#searchPages}}'+ // the divs for the search
+								//'<div id="{{id}}" class="SearchPageTabs {{#isIndex}}{{myClass}}{{/isIndex}}" ></div>' +
+							'{{/searchPages}}' +
+			'			{{/isSearchPages}}'+
+						'{{id}}</div>{{/pages}}' +
 			'{{/isMain}}' +
 		'{{id}}</div><div class="clear"></div>' +
 	'{{/content}}';
@@ -53,9 +65,23 @@ app.views.main.vars = {
 			isIndex: false
 		},{
 			id: "mainPageSearch",
-			isIndex: false
+			isIndex: false,
+			isSearchPages:true
 		},{
 			id: "mainPageSocial",
+			isIndex: false
+		}
+	],
+	searchPages:[
+		{
+			id: "searchPageWeb",
+			myClass: "current",
+			isIndex: true
+		},{
+			id: "searchPageImage",
+			isIndex: false
+		},{
+			id: "searchPageVideo",
 			isIndex: false
 		}
 	],
@@ -74,16 +100,29 @@ app.views.main.vars = {
 				target:"Social",
 				label:"Social"
 			}
-		]
+		],
+	searchBarContent:[
+			{
+				target:"WebSearch",
+				label:"Web"
+
+			},{
+				target:"ImageSearch",
+				label:"Images"
+			},{
+				target:"VideoSearch",
+				label:"Videos"
+			}
+	]
 };
 app.views.main.translate = {};
-app.views.main.translate.template= "<div id='translate_results'>{{text}}</div>";
+app.views.main.translate.template= "<div id='translate_results' class='translateResults'>{{text}}</div>";
 
 app.views.main.search = {};
-app.views.main.search.template =  "<div id='search_results'>{{#video}}{{#MediaUrlFlag}}<ul>{{Title}} <li>MediaUrl:{{MediaUrl}}</li><li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/MediaUrlFlag}}{{/video}}</div>";
-//app.views.main.search.template.web= "<div id='search_results'>{{#web}}<ul>{{Title}}<li>{{Description}}</li><li>{{DisplayUrl}}</li></ul>{{/web}}</div>";
-//app.views.main.search.template.image= "<div id='search_results'>{{#image}}<ul>ImageURL:{{MediaUrl}}<li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/image}}</div>";
-//app.views.main.search.template.video= "<div id='search_results'>{{#video}}{{#MediaUrlFlag}}<ul>{{Title}} <li>MediaUrl:{{MediaUrl}}</li><li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/MediaUrlFlag}}{{/video}}</div>";
+app.views.main.search.template = {};
+app.views.main.search.template.web= "<div id='searchPageWeb' class='searchResults'>{{#web}}<ul>{{Title}}<li>{{Description}}</li><li>{{DisplayUrl}}</li></ul>{{/web}}</div>";
+app.views.main.search.template.image= "<div id='searchPageImage' class='searchResults'>{{#image}}<ul>ImageURL:{{MediaUrl}}<li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/image}}</div>";
+app.views.main.search.template.video= "<div id='searchPageVideo' class='searchResults'>{{#video}}{{#MediaUrlFlag}}<ul>{{Title}} <li>MediaUrl:{{MediaUrl}}</li><li>ThumbNail:{{Thumbnail.MediaUrl}}</li></ul>{{/MediaUrlFlag}}{{/video}}</div>";
 
 
 
