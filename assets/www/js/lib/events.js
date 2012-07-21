@@ -78,10 +78,10 @@ app.events.mainPageHeadBarOnClick = function(){
 					case "Search":
 						app.lastResult.search.text = app.lastClip.text;
 						app.lastResult.search.data = r;
-						$('#mainPageSearch > div.searchResults').remove(); // clears all the previous search result divs - maybe you have a better solution
-						app.executeViews("#mainPageSearch" ,app.views.main.search.template.web ,app.lastResult.search.data);
-						app.executeViews("#mainPageSearch" ,app.views.main.search.template.image ,app.lastResult.search.data);
-						app.executeViews("#mainPageSearch" ,app.views.main.search.template.video ,app.lastResult.search.data);
+						$('#mainPageSearch > div.searchResults').innerHTML=""; // clears all the previous search result divs - maybe you have a better solution
+						app.executeViews("#searchPageWeb" ,app.views.main.search.template.web ,app.lastResult.search.data);
+						app.executeViews("#searchPageImage" ,app.views.main.search.template.image ,app.lastResult.search.data);
+						app.executeViews("#searchPageVideo" ,app.views.main.search.template.video ,app.lastResult.search.data);
 						console.log(app.lastResult.search.data);
 						break;
 					case "Translate":
@@ -110,10 +110,11 @@ app.events.mainPageHeadBarOnClick = function(){
 
 app.events.mainPageSearchBarOnClick = function () {
 	$('#searchTabBar a').on("click", function(e){
-
+		app.log(app.lastClip.text , app.lastResult.search.text);
 		e.preventDefault();
 		//checking if the click was pressed after a new string was copied
-		if (typeof app.lastResult.search.text !='undefined' && app.lastResult.search.text!=app.lastClip.text) {
+		if ( (!app.lastClip.text) && (app.lastResult.search.text!=app.lastClip.text)) {
+			app.log("testing" , app.lastResult.search.text);
 			app.server.search(afterData);
 			// we need to solve how exactly we will send the request and how we will present it.
 		}
@@ -122,8 +123,9 @@ app.events.mainPageSearchBarOnClick = function () {
 			app.log("SearchTabBar a onClick event" ,"app.events.searchBarOnClick");
 			var current = $('#searchTabBar a.current');
 			var target = $(e.target).data("target");
-			var targetPage = $("#mainPageSearch" + target);
-			var currentPage = $("#mainPageSearch" + current.data("target"));
+			app.log(current.data("target") ,"fuckme");
+			var targetPage = $("#searchPage" + target);
+			var currentPage = $("#searchPage" + current.data("target"));
 			if(current.data("target") == target){
 						app.log("the current tab equals to the target one" , "app.events.HeadBarOnClick");
 			}

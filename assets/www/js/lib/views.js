@@ -27,10 +27,10 @@ app.views.main.template =
 								'{{/searchBarContent}}' +
 							'</ul>'+
 			'				{{#searchPages}}'+ // the divs for the search
-								//'<div id="{{id}}" class="SearchPageTabs {{#isIndex}}{{myClass}}{{/isIndex}}" ></div>' +
+								'<div id="{{id}}" class="SearchPageTabs {{#isIndex}}{{myClass}}{{/isIndex}}" ></div>' +
 							'{{/searchPages}}' +
 			'			{{/isSearchPages}}'+
-						'{{id}}</div>{{/pages}}' +
+						'</div>{{/pages}}' +
 			'{{/isMain}}' +
 		'{{id}}</div><div class="clear"></div>' +
 	'{{/content}}';
@@ -75,13 +75,16 @@ app.views.main.vars = {
 	searchPages:[
 		{
 			id: "searchPageWeb",
+			class:"searchResults" ,
 			myClass: "current",
 			isIndex: true
 		},{
 			id: "searchPageImage",
+			class:"searchResults" ,
 			isIndex: false
 		},{
 			id: "searchPageVideo",
+			class:"searchResults" ,
 			isIndex: false
 		}
 	],
@@ -103,14 +106,14 @@ app.views.main.vars = {
 		],
 	searchBarContent:[
 			{
-				target:"WebSearch",
+				target:"Web",
 				label:"Web"
 
 			},{
-				target:"ImageSearch",
+				target:"Image",
 				label:"Images"
 			},{
-				target:"VideoSearch",
+				target:"Video",
 				label:"Videos"
 			}
 	]
@@ -120,23 +123,23 @@ app.views.main.translate.template= "<div id='translate_results' class='translate
 
 app.views.main.search = {};
 app.views.main.search.template = {};
-app.views.main.search.template.web= "<div id='searchPageWeb' class='searchResults'>{{#web}}" +
+app.views.main.search.template.web= /*"<div id='searchPageWeb' class='searchResults'>*/ "{{#web}}" +
 											"<ul>{{Title}}" +
 												"<li>{{Description}}</li>" +
 												"<li>{{DisplayUrl}}</li>" +
-											"</ul>{{/web}}" +
-									"</div>";
-app.views.main.search.template.image= 	"<div id='searchPageImage' class='searchResults'>{{#image}}" +
+											"</ul>{{/web}}" /*+
+										"</div>"*/;
+app.views.main.search.template.image= 	/*"<div id='searchPageImage' class='searchResults'>*/"{{#image}}" +
 											"<ul>ImageURL:{{MediaUrl}}" +
 												"<li>ThumbNail:{{Thumbnail.MediaUrl}}</li>" +
-											"</ul>{{/image}}" +
-										"</div>";
-app.views.main.search.template.video= 	"<div id='searchPageVideo' class='searchResults'>{{#video}}{{#MediaUrlFlag}}" +
+											"</ul>{{/image}}" /*+
+										"</div>"*/;
+app.views.main.search.template.video= 	/*"<div id='searchPageVideo' class='searchResults'>*/"{{#video}}{{#MediaUrlFlag}}" +
 											"<ul>{{Title}}" +
 												"<li>MediaUrl:{{MediaUrl}}</li>" +
 												"<li>ThumbNail:{{Thumbnail.MediaUrl}}</li>" +
-											"</ul>{{/MediaUrlFlag}}{{/video}}" +
-										"</div>";
+											"</ul>{{/MediaUrlFlag}}{{/video}}" /*+
+										"</div>"*/;
 
 /* FOOTER BAR VIEW */
 app.views.footBar = {};
