@@ -122,7 +122,9 @@ app.views.main.vars = {
 	]
 };
 app.views.main.translate = {};
-app.views.main.translate.template= "<div id='translate_results' class='translateResults'>{{text}}</div>";
+app.views.main.translate.template= 	"<div id='translate_results' class='translateResults'>" +
+										"{{text}}" +
+									"</div>";
 
 app.views.main.search = {};
 app.views.main.search.template = {};
