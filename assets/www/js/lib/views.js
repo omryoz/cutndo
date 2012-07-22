@@ -22,17 +22,17 @@ app.views.main.template =
 							'<ul id="searchTabBar">'+ // adding the ul for the headers
 								'{{#searchBarContent}}' +
 									'<li>' + //li headers and links
-										'<a href="#"  data-target="{{target}}">{{label}}</a>' +
+										'<a href="#"  data-target="{{target}}" class="{{#isIndex}}{{myClass}}{{/isIndex}}">{{label}}</a>' +
 									'</li>' +
 								'{{/searchBarContent}}' +
 							'</ul>'+
 			'				{{#searchPages}}'+ // the divs for the search
-								'<div id="{{id}}" class="SearchPageTabs {{#isIndex}}{{myClass}}{{/isIndex}}" ></div>' +
+								'<div id="{{id}}" class="SearchPageTabs" class="{{#isIndex}}{{myClass}}{{/isIndex}}" ></div>' +
 							'{{/searchPages}}' +
 			'			{{/isSearchPages}}'+
 						'</div>{{/pages}}' +
 			'{{/isMain}}' +
-		'{{id}}</div><div class="clear"></div>' +
+		'</div><div class="clear"></div>' +
 	'{{/content}}';
 
 app.views.main.vars = {
@@ -107,14 +107,17 @@ app.views.main.vars = {
 	searchBarContent:[
 			{
 				target:"Web",
-				label:"Web"
-
+				label:"Web",
+				myClass:"current",
+				isIndex:true
 			},{
 				target:"Image",
-				label:"Images"
+				label:"Images",
+				isIndex:false
 			},{
 				target:"Video",
-				label:"Videos"
+				label:"Videos",
+				isIndex:false
 			}
 	]
 };
