@@ -30,6 +30,10 @@ app.views.main.template =
 								'<div id="{{id}}" class="SearchPageTabs" class="{{#isIndex}}{{myClass}}{{/isIndex}}" ></div>' +
 							'{{/searchPages}}' +
 			'			{{/isSearchPages}}'+
+						'{{#isTranslatePages}}' +
+							'<div id="translateOptions"></div>' +
+							'<div id="translateResults" class="translateResults"></div>'+
+						'{{/isTranslatePages}}' +
 						'</div>{{/pages}}' +
 			'{{/isMain}}' +
 		'</div><div class="clear"></div>' +
@@ -59,7 +63,8 @@ app.views.main.vars = {
 			isIndex: true
 		},{
 			id: "mainPageTranslate",
-			isIndex: false
+			isIndex: false,
+			isTranslatePages:true
 		},{
 			id: "mainPageHear",
 			isIndex: false
@@ -122,9 +127,18 @@ app.views.main.vars = {
 	]
 };
 app.views.main.translate = {};
-app.views.main.translate.template= 	"<div id='translate_results' class='translateResults'>" +
-										"{{text}}" +
-									"</div>";
+app.views.main.translate.template= 	"{{text}}";
+app.views.main.translate.optionTemplate= 	'<select id="fromLanguage" name="fromLanguage">' +
+													'<option value="">Auto Detect</option>'+
+												'{{#Languages}}' +
+													'<option value={{Code}}>{{Name}}</option>'+
+												'{{/Languages}}' +
+											'</select>'+
+											'<select id="toLanguage" name="toLanguage">' +
+												'{{#Languages}}' +
+													'<option value={{Code}}>{{Name}}</option>'+
+												'{{/Languages}}' +
+											'</select>';
 
 app.views.main.search = {};
 app.views.main.search.template = {};

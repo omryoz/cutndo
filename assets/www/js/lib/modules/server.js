@@ -40,7 +40,7 @@ app.server.search = function(callback){
 };
 app.server.translate = function(to ,callback){
 	app.log("execute" , "app.server.translate");
-	var url = app.server.url + '?callback=?&action=translate&uuid=' + app.user.uuid() + '&text=' + encodeURIComponent(app.lastClip.text) + '&to=' + to
+	var url = app.server.url + '?callback=?&action=translate&uuid=' + app.user.uuid() + '&text=' + encodeURIComponent(app.lastClip.text) + '&to=' + to;
 	console.log(url);
 	$.ajaxJSONP({
 		url: url,
@@ -66,6 +66,31 @@ app.server.hear = function(callback){
 		function(e){console.log(e);}
 	);
 };
-
+app.server.translateLanguages = function(callback){
+	app.log("execute" , "app.server.translate");
+	var url = app.server.url + '?callback=?&action=getLanguagesForTranslation&uuid=' + app.user.uuid();
+	console.log(url);
+	$.ajaxJSONP({
+		url: url,
+		success: function(data){
+			app.log("success" , "app.server.translate $.ajaxJSONP");
+			app.translateLanguages=data;
+			callback("#translateOptions" ,app.views.main.translate.optionTemplate ,app.translateLanguages,app.server.translatetoLanguageSetDefault);
+		},
+		error : function(xhr, errorType, error){
+			console.log(xhr);
+			console.log(errorType);
+			console.log(error);
+		},
+		complete : function(){}
+	});
+};
+app.server.translatetoLanguageSetDefault = function(defaultValue) {
+	if(typeof defaultValue == "undefined")
+		defaultValue = app.user.defaultTranslateLang;
+	app.log("what the fuck" , "what the fuck");
+	//$("#toLanguage option[value = '+app.user.defaultTranslateLang+']").attr('selected', 'selected');
+	$('#toLanguage option[value='+defaultValue+']').attr('selected','selected');
+};
 app.server.social = function(){};
 

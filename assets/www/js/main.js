@@ -26,6 +26,7 @@ app.user.name = function(){ return (app.isMobile) ?  device.name :  "device name
 
 
 app.user.defaultTranslateLang = "es";
+app.translateLanguages = {};
 
 /*last result*/
 app.lastResult = {};

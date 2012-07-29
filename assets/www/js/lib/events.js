@@ -5,6 +5,8 @@ app.events.runAll = function(){
 	app.events.footBarOnClick();
 	app.events.mainPageHeadBarOnClick();
 	app.events.mainPageSearchBarOnClick();
+	app.server.translateLanguages(app.executeViews);
+	app.events.selectToLanguageOnFocus();
 };
 
 app.events.footBarOnClick = function(){
@@ -87,8 +89,8 @@ app.events.mainPageHeadBarOnClick = function(){
 					case "Translate":
 						app.lastResult.translate.text = app.lastClip.text;
 						app.lastResult.translate.data = r;
-						$('#mainPageTranslate > div.translateResults').remove(); // clears all the previous search result divs - maybe you have a better solution
-						app.executeViews("#mainPageTranslate" ,app.views.main.translate.template ,app.lastResult.translate.data);
+						$('#mainPageTranslate > div.translateResults').innerHTML=""; // clears all the previous search result divs - maybe you have a better solution
+						app.executeViews("#translateResults" ,app.views.main.translate.template ,app.lastResult.translate.data);
 						console.log(app.lastResult.translate.data);
 						break;
 
@@ -139,4 +141,43 @@ app.events.mainPageSearchBarOnClick = function () {
 		}
 	});
 };
+app.events.selectFromLanguageOnFocus = function () {
 
+		var previous;
+
+		$("#fromLanguage").on("focus",function (e) {
+			alert("bitch");
+			e.preventDefault();
+			// Store the current value on focus, before it changes
+			previous = this.value;
+		}).change(function() {
+			// Do something with the previous value after the change
+			var r = confirm("Are you sure the Origin Language is incorrect?");
+			if (r) {}
+			else {
+
+			}
+
+
+		});
+};
+app.events.selectToLanguageOnFocus = function () {
+
+		var previous;
+
+		$("#toLanguage").on("focus",function (e) {
+			alert("bitch");
+			e.preventDefault();
+			// Store the current value on focus, before it changes
+			previous = this.value;
+		}).change(function() {
+			// Do something with the previous value after the change
+			var r = confirm("Are you sure the Origin Language is incorrect?");
+			if (r) {}
+			else {
+
+			}
+
+
+		});
+};
