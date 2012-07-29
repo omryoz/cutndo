@@ -5,8 +5,8 @@ app.events.runAll = function(){
 	app.events.footBarOnClick();
 	app.events.mainPageHeadBarOnClick();
 	app.events.mainPageSearchBarOnClick();
-	app.server.translateLanguages(app.executeViews);
-	app.events.selectToLanguageOnFocus();
+	app.server.translateLanguages();
+
 };
 
 app.events.footBarOnClick = function(){
@@ -48,6 +48,8 @@ app.events.mainPageHeadBarOnClick = function(){
 		var targetPage = $("#mainPage" + target);
 		var currentPage = $("#mainPage" + current.data("target"));
 		// check if the new target is not the current
+		// TO DO !!! - Handle case: new string is the clip but same target page
+
 		if(current.data("target") == target){
 					app.log("the current tab equals to the target one" , "app.events.HeadBarOnClick");
 		}
@@ -80,7 +82,7 @@ app.events.mainPageHeadBarOnClick = function(){
 					case "Search":
 						app.lastResult.search.text = app.lastClip.text;
 						app.lastResult.search.data = r;
-						$('#mainPageSearch > div.searchResults').innerHTML=""; // clears all the previous search result divs - maybe you have a better solution
+						$('#mainPageSearch > div.searchResults').empty(); // clears all the previous search result divs - maybe you have a better solution
 						app.executeViews("#searchPageWeb" ,app.views.main.search.template.web ,app.lastResult.search.data);
 						app.executeViews("#searchPageImage" ,app.views.main.search.template.image ,app.lastResult.search.data);
 						app.executeViews("#searchPageVideo" ,app.views.main.search.template.video ,app.lastResult.search.data);
@@ -89,7 +91,7 @@ app.events.mainPageHeadBarOnClick = function(){
 					case "Translate":
 						app.lastResult.translate.text = app.lastClip.text;
 						app.lastResult.translate.data = r;
-						$('#mainPageTranslate > div.translateResults').innerHTML=""; // clears all the previous search result divs - maybe you have a better solution
+						$('#translateResults').empty(); // clears all the previous search result divs - maybe you have a better solution
 						app.executeViews("#translateResults" ,app.views.main.translate.template ,app.lastResult.translate.data);
 						console.log(app.lastResult.translate.data);
 						break;
@@ -141,43 +143,52 @@ app.events.mainPageSearchBarOnClick = function () {
 		}
 	});
 };
-app.events.selectFromLanguageOnFocus = function () {
-
+app.events.selectLanguageOnFocus = function () {
+// TO DO - maybe handle the case where user switch from one language to another and back?!?
+// TO DO - should we save all the different language results for the same text in the same object?
 		var previous;
 
-		$("#fromLanguage").on("focus",function (e) {
-			alert("bitch");
-			e.preventDefault();
+		$('#fromLanguage').on("focus",function (e) {
 			// Store the current value on focus, before it changes
 			previous = this.value;
 		}).change(function() {
 			// Do something with the previous value after the change
-			var r = confirm("Are you sure the Origin Language is incorrect?");
-			if (r) {}
-			else {
+			var r = confirm("Are you sure the original text is written in "+this.options[this.selectedIndex].text +" ?");
+			if (r) { // Translate Again with the new Origin Language
+				app.user.defaultOriginLang = this.value ;
+				app.server.translate(app.user.defaultTranslateLang ,afterData);
+
+			}
+			else { // Cancel the change of language
+				this.value = previous;
 
 			}
 
 
 		});
-};
-app.events.selectToLanguageOnFocus = function () {
-
-		var previous;
-
-		$("#toLanguage").on("focus",function (e) {
-			alert("bitch");
-			e.preventDefault();
+		$("#toLanguage").on("focus",function () {
+			//e.preventDefault();
 			// Store the current value on focus, before it changes
 			previous = this.value;
 		}).change(function() {
-			// Do something with the previous value after the change
-			var r = confirm("Are you sure the Origin Language is incorrect?");
-			if (r) {}
-			else {
 
+			// Do something with the previous value after the change
+			var r = confirm("Do you wish get translations results in "+this.options[this.selectedIndex].text +" ?");
+			if (r) { // Handle the request
+				app.server.translate(this.value ,afterData);
+			}
+			else { // Cancel the change of language
+				this.value = previous ;
 			}
 
 
 		});
+		function afterData(r){
+			app.lastResult.translate.text = app.lastClip.text;
+			app.lastResult.translate.data = r;
+			$('#translateResults').empty(); // clears all the previous search result divs - maybe you have a better solution
+			app.executeViews("#translateResults" ,app.views.main.translate.template ,app.lastResult.translate.data);
+			console.log(app.lastResult.translate.data);
+		}
 };
+

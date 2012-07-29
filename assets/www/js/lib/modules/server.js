@@ -40,7 +40,9 @@ app.server.search = function(callback){
 };
 app.server.translate = function(to ,callback){
 	app.log("execute" , "app.server.translate");
-	var url = app.server.url + '?callback=?&action=translate&uuid=' + app.user.uuid() + '&text=' + encodeURIComponent(app.lastClip.text) + '&to=' + to;
+	from = (!app.user.defaultOriginLang)  ? "" :'&from='+app.user.defaultOriginLang;
+	var url = app.server.url + '?callback=?&action=translate&uuid=' + app.user.uuid() + '&text=' + encodeURIComponent(app.lastClip.text) + from +'&to=' + to;
+	app.user.defaultOriginLang=null;
 	console.log(url);
 	$.ajaxJSONP({
 		url: url,
@@ -66,7 +68,7 @@ app.server.hear = function(callback){
 		function(e){console.log(e);}
 	);
 };
-app.server.translateLanguages = function(callback){
+app.server.translateLanguages = function(){
 	app.log("execute" , "app.server.translate");
 	var url = app.server.url + '?callback=?&action=getLanguagesForTranslation&uuid=' + app.user.uuid();
 	console.log(url);
@@ -75,7 +77,8 @@ app.server.translateLanguages = function(callback){
 		success: function(data){
 			app.log("success" , "app.server.translate $.ajaxJSONP");
 			app.translateLanguages=data;
-			callback("#translateOptions" ,app.views.main.translate.optionTemplate ,app.translateLanguages,app.server.translatetoLanguageSetDefault);
+			app.executeViews("#translateOptions" ,app.views.main.translate.optionTemplate ,app.translateLanguages,app.server.selectLanguagesInit);
+
 		},
 		error : function(xhr, errorType, error){
 			console.log(xhr);
@@ -89,8 +92,12 @@ app.server.translatetoLanguageSetDefault = function(defaultValue) {
 	if(typeof defaultValue == "undefined")
 		defaultValue = app.user.defaultTranslateLang;
 	app.log("what the fuck" , "what the fuck");
-	//$("#toLanguage option[value = '+app.user.defaultTranslateLang+']").attr('selected', 'selected');
 	$('#toLanguage option[value='+defaultValue+']').attr('selected','selected');
 };
 app.server.social = function(){};
 
+app.server.selectLanguagesInit = function() {
+	app.server.translatetoLanguageSetDefault();
+	app.events.selectLanguageOnFocus();
+
+};

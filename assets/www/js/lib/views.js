@@ -136,7 +136,7 @@ app.views.main.translate.optionTemplate= 	'<select id="fromLanguage" name="fromL
 											'</select>'+
 											'<select id="toLanguage" name="toLanguage">' +
 												'{{#Languages}}' +
-													'<option value={{Code}}>{{Name}}</option>'+
+													'<option value={{Code}} label={{Name}}>{{Name}}</option>'+
 												'{{/Languages}}' +
 											'</select>';
 
