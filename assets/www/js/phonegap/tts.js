@@ -1,37 +1,153 @@
+/*
+ * cordova is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ *
+ * Copyright (c) 2011, IBM Corporation
+ */
+/*
+ * cordova is available under *either* the terms of the modified BSD license *or* the
+ * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
+ * 
+ * Copyright (c) 2011, IBM Corporation
+ *
+ * Modified by Murray Macdonald (murray@workgroup.ca) on 2012/05/30 to add pitch(), speed(), stop(), and interrupt() methods.
+ */
 
 /**
- *  
- * @return Instance of DirectoryListing
+ * Constructor
  */
-var Tts = function() {
+function TTS() {
+}
 
+TTS.STOPPED = 0;
+TTS.INITIALIZING = 1;
+TTS.STARTED = 2;
+
+/**
+ * Play the passed in text as synthesized speech
+ * 
+ * @param {DOMString} text
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.speak = function(text, successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "speak", [text]);
 };
 
 /**
- * @param directory The directory for which we want the listing
- * @param successCallback The callback which will be called when directory listing is successful
- * @param failureCallback The callback which will be called when directory listing encouters an error
+ * Interrupt any existing speech, then speak the passed in text as synthesized speech
+ * 
+ * @param {DOMString} text
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
  */
-Tts.prototype.speak = function(data , successCallback, failureCallback) {
-
-	
-    return PhoneGap.exec(successCallback,    //Callback which will be called when directory listing is successful
-    					failureCallback,     //Callback which will be called when directory listing encounters an error
-    					'TTSPlugin',         //Telling PhoneGap that we want to run "DirectoryListing" Plugin
-						'speak',             //Telling the plugin, which action we want to perform
-						[data]);
+TTS.prototype.interrupt = function(text, successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "interrupt", [text]);
 };
-/**
- * <ul>
- * <li>Register the Directory Listing Javascript plugin.</li>
- * <li>Also register native call which will be called when this plugin runs</li>
- * </ul>
- */
-PhoneGap.addConstructor(function() {
-	//Register the javascript plugin with PhoneGap
-	PhoneGap.addPlugin('tts', new Tts());
-	
-	//Register the native class of plugin with PhoneGap
-	//PluginManager.addService("TTSPlugin","com.nemni.cutndo.TTSPlugin");
-});
 
+/**
+ * Stop any queued synthesized speech
+ * 
+ * @param {DOMString} text
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.stop= function(successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "stop", []);
+};
+
+/** 
+ * Play silence for the number of ms passed in as duration
+ * 
+ * @param {long} duration
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.silence = function(duration, successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "silence", [duration]);
+};
+
+/** 
+ * Set speed of speech.  Usable from 30 to 500.  Higher values make little difference.
+ * 
+ * @param {long} speed
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.speed = function(speed, successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "speed", [speed]);
+};
+
+/** 
+ * Set pitch of speech.  Useful values are approximately 30 - 300
+ * 
+ * @param {long} pitch
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.pitch = function(pitch, successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "pitch", [pitch]);
+};
+
+/**
+ * Starts up the TTS Service
+ * 
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.startup = function(successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "startup", []);
+};
+
+/**
+ * Shuts down the TTS Service if you no longer need it.
+ * 
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.shutdown = function(successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "shutdown", []);
+};
+
+/**
+ * Finds out if the language is currently supported by the TTS service.
+ * 
+ * @param {DOMSting} lang
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.isLanguageAvailable = function(lang, successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "isLanguageAvailable", [lang]);
+};
+
+/**
+ * Finds out the current language of the TTS service.
+ * 
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.getLanguage = function(successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "getLanguage", []);
+};
+
+/**
+ * Sets the language of the TTS service.
+ * 
+ * @param {DOMString} lang
+ * @param {Object} successCallback
+ * @param {Object} errorCallback
+ */
+TTS.prototype.setLanguage = function(lang, successCallback, errorCallback) {
+     return cordova.exec(successCallback, errorCallback, "TTS", "setLanguage", [lang]);
+};
+
+/**
+ * Load TTS
+ */
+
+if(!window.plugins) {
+    window.plugins = {};
+}
+if (!window.plugins.tts) {
+    window.plugins.tts = new TTS();
+}

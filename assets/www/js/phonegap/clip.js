@@ -3,8 +3,8 @@
  *  
  * @return Instance of DirectoryListing
  */
-var Clip = function() {
-
+Clip = function() {
+	PluginManager.addService("ClipPlugin","com.nemni.cutndo.ClipPlugin");
 };
 
 /**
@@ -68,6 +68,7 @@ Clip.prototype.CountUses = function(data , successCallback, failureCallback) {
  * <li>Also register native call which will be called when this plugin runs</li>
  * </ul>
  */
+/*
 PhoneGap.addConstructor(function() {
 	//Register the javascript plugin with PhoneGap
 	PhoneGap.addPlugin('clip', new Clip());
@@ -75,4 +76,6 @@ PhoneGap.addConstructor(function() {
 	//Register the native class of plugin with PhoneGap
 	//PluginManager.addService("ClipPlugin","com.nemni.cutndo.ClipPlugin");
 });
+*/ 
+
 

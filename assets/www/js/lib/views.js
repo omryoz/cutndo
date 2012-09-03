@@ -52,7 +52,7 @@ app.views.main.vars = {
 			id:"feedback",
 			isMain:false
 		},{
-			id:"settings",
+			id:"more",
 			isMain:false
 		}
 	],
@@ -143,21 +143,18 @@ app.views.main.translate.optionTemplate= 	'<select id="fromLanguage" name="fromL
 app.views.main.search = {};
 app.views.main.search.template = {};
 app.views.main.search.template.web= /*"<div id='searchPageWeb' class='searchResults'>*/ "{{#web}}" +
-											"<ul>{{Title}}" +
+											"<ul><a href=\"#\"  onclick=\"window.plugins.childBrowser.showWebPage({{Url}}, { showLocationBar: true });\" >{{Title}}</a>" +
 												"<li>{{Description}}</li>" +
 												"<li>{{DisplayUrl}}</li>" +
 											"</ul>{{/web}}" /*+
 										"</div>"*/;
 app.views.main.search.template.image= 	/*"<div id='searchPageImage' class='searchResults'>*/"{{#image}}" +
-											"<ul>ImageURL:{{MediaUrl}}" +
-												"<li>ThumbNail:{{Thumbnail.MediaUrl}}</li>" +
-											"</ul>{{/image}}" /*+
+											'<a href="' +'{{MediaUrl}}"><img src="' + '{{Thumbnail.MediaUrl}}" /></a>'+
+											"{{/image}}" /*+
 										"</div>"*/;
 app.views.main.search.template.video= 	/*"<div id='searchPageVideo' class='searchResults'>*/"{{#video}}{{#MediaUrlFlag}}" +
-											"<ul>{{Title}}" +
-												"<li>MediaUrl:{{MediaUrl}}</li>" +
-												"<li>ThumbNail:{{Thumbnail.MediaUrl}}</li>" +
-											"</ul>{{/MediaUrlFlag}}{{/video}}" /*+
+											'<a href="' +'{{MediaUrl}}"><img src="' + '{{Thumbnail.MediaUrl}}" alt="' +'{{Title}}"/></a>'+
+											"{{/MediaUrlFlag}}{{/video}}" /*+
 										"</div>"*/;
 
 /* FOOTER BAR VIEW */
@@ -180,16 +177,12 @@ app.views.footBar.vars = {
 			myClass:"current",
 			isMain:true
 		},{
-			target:"appStore",
-			label:"app store",
-			isMain:false
-		},{
 			target:"feedback",
 			label:"feedback",
 			isMain:false
 		},{
-			target:"settings",
-			label:"settings",
+			target:"more",
+			label:"more",
 			isMain:false
 		}
 	]
